@@ -19,22 +19,23 @@
 
 
     <div class="card">
+
+        @include('admin.includes.alerts')
       
         <div class="card-body">
            <table class="table table-condensed">
                <thead>
                    <th>Nome</th>
-                   <th width="150">Ações</th>
+                   <th width="200">Ações</th>
                </thead>
                <tbody>
                     @foreach ($details as $detail)
                         <tr>
                             <td><strong>{{ $detail->name }}</strong></td>
                        
-                            {{-- <td>R$ {{ number_format($plan->price, 2, ",", ".") }}</td> --}}
                             <td style="width:1em">
-                                <a   href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning"> <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a   href="{{ route('details.plan.edit', [$plan->url, $detail->id]) }}" class="btn btn-info"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                <a   href="{{ route('details.plan.show', [$plan->url, $detail->id]) }}" class="btn btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a   href="{{ route('details.plan.edit', [$plan->url, $detail->id]) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                             </td>
                         </tr>
                     @endforeach

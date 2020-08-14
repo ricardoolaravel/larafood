@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateDetailPlan;
 use App\Models\DetailPlan;
 use App\Models\Plan;
 use Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class DetailPlanController extends Controller
         ]);
     }
 
-    public function store(Request $request, $urlPlan)
+    public function store(StoreUpdateDetailPlan $request, $urlPlan)
     {
        
         if(!$plan = $this->plan->where('url', $urlPlan)->first()){
@@ -81,24 +82,58 @@ class DetailPlanController extends Controller
         ]);
     }
 
-    public function update(Request $request, $urlPlan, $id)
+    public function update(StoreUpdateDetailPlan $request, $urlPlan, $id)
     {
 
         $plan = $this->plan->where('url', $urlPlan)->first();
-        $idDetail = $this->repository->find($id);
+        $detail = $this->repository->find($id);
         
-        
-        if(!$plan || $idDetail){
+        if(!$plan && $detail){
 
             return redirect()->back();
            }
-
         
+        $detail->update($request->all());
 
-        // return view('admin.pages.plans.details.edit', [
-        //     'plan' => $plan,
-        //     'idDetail' => $idDetail
-        // ]);
+        return redirect()->route('details.plan.index', $plan->url);
+     
+    }
+
+    public function show($urlPlan, $id)
+    {
+
+        $plan = $this->plan->where('url', $urlPlan)->first();
+        $detail = $this->repository->find($id);
+        
+       if(!$plan && $detail)
+            return redirect()->back();
+
+      
+
+        // dd($detail->name);
+
+        return view('admin.pages.plans.details.show', [
+            'plan' => $plan,
+            'detail' => $detail
+        ]);
+    }
+
+    public function destroy($urlPlan, $id)
+    {
+        $plan = $this->plan->where('url', $urlPlan)->first();
+        $detail = $this->repository->find($id);
+        
+        if(!$plan && $detail){
+
+            return redirect()->back();
+           }
+        
+        $detail->delete();
+
+        return redirect()
+                    ->route('details.plan.index', $plan->url)
+                    ->with('message', 'Registro deletado com sucesso');
+     
     }
 
 

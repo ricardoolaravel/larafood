@@ -34,6 +34,7 @@
         </div>
 
         <div class="card-footer">
+            @include('admin.includes.alerts')
             <form style="display: inline" action="{{ route('plans.destroy', $plan->url) }}" method="POST">
                 @csrf
                 @method('DELETE')
