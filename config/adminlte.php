@@ -237,6 +237,11 @@ return [
             'url'  => 'admin/plans',
             'icon' => 'fa fa-list',
         ],
+        [
+            'text' => 'Perfis',
+            'url'  => 'admin/profiles',
+            'icon' => 'fas fa-users',
+        ],
        
     ],
 

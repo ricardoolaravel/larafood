@@ -17,3 +17,9 @@
       {{ session('error') }}
     </div>
 @endif
+
+@if (session('accept'))
+<div class="alert alert-success" role="alert">
+     <strong>Sucesso!</strong>  {{ session('accept') }}
+    </div>
+@endif

@@ -6,6 +6,11 @@ Route::prefix('admin')
     ->namespace('Admin')
     ->group(function(){
 
+    /**
+     * Rota de perfiles
+     */
+    Route::any('profiles/search', 'ACL\\ProfileController@search')->name('profiles.search');
+    Route::resource('profiles', 'ACL\\ProfileController');
 
     /**
      * Rota para detalhes do plano

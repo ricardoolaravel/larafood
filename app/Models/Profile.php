@@ -4,15 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DetailPlan extends Model
+class Profile extends Model
 {
-    protected $table = 'details_plan';
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'description'];
 
-    public function plan()
-    {
-        $this->belongsTo(Plan::class);
-    }
 
 
     public function search($filter = null)
