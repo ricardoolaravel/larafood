@@ -34,7 +34,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.permissions.create');
     }
 
     /**
@@ -45,7 +45,13 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(!$permission = $this->repository->create($request->all())){
+            
+            return redirect()->back();
+        }
+
+        return redirect()->route('permissions.index')
+                            ->with('accept', 'Permissão cadastrada');
     }
 
     /**
@@ -56,7 +62,12 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!$permission = $this->repository->find($id)->first()){
+            
+            return redirect()->back();
+        }
+
+        return view('admin.pages.permissions.show', compact('permission'));
     }
 
     /**
@@ -67,7 +78,12 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!$permission = $this->repository->find($id)->first()){
+            
+            return redirect()->back();
+        }
+
+        return view('admin.pages.permissions.edit', compact('permission'));
     }
 
     /**
@@ -79,7 +95,12 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permission = $this->repository->where('id', $id)->first();
+
+        $permission->update($request->all());
+
+        return redirect()->route('permissions.index')
+                            ->with('accept', 'Permissão Editada');
     }
 
     /**
@@ -90,6 +111,15 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!$permission = $this->repository->where('id', $id)->first()){
+            
+            return redirect()->back();
+        }
+
+        $permission->delete();
+
+        return redirect()->route('permissions.index')
+                            ->with('accept', 'Permissão Excluida');
+
     }
 }
