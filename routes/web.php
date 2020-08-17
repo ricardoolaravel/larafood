@@ -6,6 +6,12 @@ Route::prefix('admin')
     ->namespace('Admin')
     ->group(function(){
 
+
+    /**
+     * Rota para permissoes
+     */
+    Route::resource('permissions', 'ACL\\PermissionController');
+
     /**
      * Rota de perfiles
      */

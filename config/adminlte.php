@@ -242,6 +242,11 @@ return [
             'url'  => 'admin/profiles',
             'icon' => 'fas fa-users',
         ],
+        [
+            'text' => 'Permissões',
+            'url'  => 'admin/permissions',
+            'icon' => 'fas fa-users',
+        ],
        
     ],
 
